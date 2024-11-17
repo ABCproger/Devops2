@@ -3,7 +3,7 @@
 
 class TrigFunction {
 public:
-    double FuncA(); // Function returning 0
+    double FuncA(double x);
 };
 
 #endif
