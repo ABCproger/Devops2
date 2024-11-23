@@ -2,9 +2,9 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [branchAutoPackage]
+    branches: [branchAutoTest]
   pull_request:
-    branches: [branchAutoPackage]
+    branches: [branchAutoTest]
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y autoconf automake g++ debhelper devscripts
+          sudo apt-get install -y autoconf automake g++ libboost-test-dev
 
       - name: Generate configure script
         run: |
@@ -25,15 +25,14 @@ jobs:
       - name: Configure
         run: ./configure
 
-      - name: Build Debian package
-        run: |
-          dpkg-buildpackage -us -uc
-
       - name: Build
         run: make
 
-      - name: Upload Debian package
+      - name: Run tests
+        run: make check
+
+      - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
-          name: funca-deb
-          path: /home/runner/work/Devops2/funca_*.deb
+          name: test-results
+          path: test-results.log
