@@ -2,9 +2,9 @@ name: C/C++ CI
 
 on:
   push:
-    branches: [branchAutomake]
+    branches: [branchAutoPackage]
   pull_request:
-    branches: [branchAutomake]
+    branches: [branchAutoPackage]
 
 jobs:
   build:
@@ -16,7 +16,24 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y g++ make
+          sudo apt-get install -y autoconf automake g++ debhelper devscripts
+
+      - name: Generate configure script
+        run: |
+          autoreconf --install
+
+      - name: Configure
+        run: ./configure
+
+      - name: Build Debian package
+        run: |
+          dpkg-buildpackage -us -uc
 
       - name: Build
         run: make
+
+      - name: Upload Debian package
+        uses: actions/upload-artifact@v4
+        with:
+          name: funca-deb
+          path: /home/runner/work/Devops2/funca_*.deb
