@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -Wall -std=c++11
-TARGET = TrigFunction
+TARGET = funca
 SOURCES = main.cpp FuncA.cpp
 OBJECTS = $(SOURCES:.cpp=.o)
 
