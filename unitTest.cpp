@@ -29,10 +29,8 @@ void testFuncA() {
     int iMS = calculateTime();
 
     assert(iMS >= 5000 && iMS <= 20000);
-    std::cout << "Execution time (in ms): " << iMS << std::endl;
 }
 
 int main() {
     testFuncA();
-    std::cout << "Execution time (in ms): " << std::endl;
 }

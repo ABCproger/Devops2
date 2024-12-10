@@ -31,6 +31,30 @@ jobs:
       - name: Run tests
         run: make check
 
+      - name: QEMU install
+        uses: docker/setup-qemu-action@v3
+
+      - name: Install Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: build ls
+        run: docker buildx ls
+
+      - name: Log in to dockerhub
+        run: docker login -u ${{ vars.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Dockerfile image for amd64
+        run: docker build --platform=linux/amd64 -t abcproger/httpserver:amd64 --push .
+
+      - name: Build Dockerfile image for arm64
+        run: docker build --platform=linux/arm64 -t abcproger/httpserver:arm64 --push .
+
+      - name: Create manifest
+        run: docker manifest create abcproger/httpserver --amend abcproger/httpserver:amd64 --amend abcproger/httpserver:arm64
+
+      - name: Push manifest to docker hub
+        run: docker manifest push abcproger/httpserver
+
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         with:
