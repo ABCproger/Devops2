@@ -1,7 +1,7 @@
 #include <cassert>
 #include <cmath>
 #include "FuncA.h"
-#include "calculateTime.h"
+#include "getLoadTime.h"
 #include <vector>
 #include <random>
 #include <chrono>
@@ -26,13 +26,11 @@ void testFuncA() {
     // Тест 5: x = M_PI/2, n = 5
     assert(std::abs(trigFunc.FuncA(M_PI/2, 5) - (M_PI/2 - pow(M_PI/2, 3)/3 + pow(M_PI/2, 5)/5 - pow(M_PI/2, 7)/7 + pow(M_PI/2, 9)/9)) < 1e-9);
 
-    int iMS = calculateTime();
+    int iMS = getLoadTime();
 
     assert(iMS >= 5000 && iMS <= 20000);
-    std::cout << "Execution time (in ms): " << iMS << std::endl;
 }
 
 int main() {
     testFuncA();
-    std::cout << "Execution time (in ms): " << std::endl;
 }
