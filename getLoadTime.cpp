@@ -1,11 +1,11 @@
-#include "calculateTime.h"
+#include "getLoadTime.h"
 #include "FuncA.h"
 #include <vector>
 #include <random>
 #include <chrono>
 #include <algorithm>
 
-int calculateTime() {
+int getLoadTime() {
     auto t1 = std::chrono::high_resolution_clock::now();
 
     std::vector<double> aValues;

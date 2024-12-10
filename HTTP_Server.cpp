@@ -12,7 +12,7 @@
 #include <errno.h>
 
 #include "FuncA.h"
-#include "calculateTime.h"
+#include "getLoadTime.h"
 #include <vector>
 #include <random>
 #include <chrono>
@@ -136,7 +136,7 @@ int CreateHTTPserver()
                 }
                 else if (!strcmp(strHTTP_requestPath, "/compute"))
     {
-        int iMS = calculateTime();
+        int iMS = getLoadTime();
 
         char strTimeEllapsed[20];
         sprintf(strTimeEllapsed, "%i", iMS);
